@@ -46,6 +46,7 @@ module.exports = grammar({
           repeat($.annotation),
           $.request_line,
           $._newline,
+          repeat($.url_continuation),
           repeat($.header),
           optional($.body),
         ),
@@ -80,6 +81,14 @@ module.exports = grammar({
 
     url_segment: (_) => /[^\s{}]+/,
 
+    // Multiline URL: indented continuation lines starting with /, ?, &, or #
+    url_continuation: ($) =>
+      seq(
+        /[ \t]+/,
+        repeat1(choice($.variable, $.url_segment)),
+        $._newline,
+      ),
+
     http_version: (_) => /HTTP\/[0-9.]+/,
 
     header: ($) =>
@@ -88,6 +97,7 @@ module.exports = grammar({
         ":",
         optional(seq(/[ \t]*/, field("value", $.header_value))),
         $._newline,
+        repeat($.header_continuation),
       ),
 
     header_name: (_) => /[A-Za-z0-9\-_]+/,
@@ -95,6 +105,14 @@ module.exports = grammar({
     header_value: ($) => repeat1(choice($.variable, $.header_value_segment)),
 
     header_value_segment: (_) => /[^\r\n{}]+/,
+
+    // Multiline header value: indented continuation lines
+    header_continuation: ($) =>
+      seq(
+        /[ \t]+/,
+        field("value", $.header_value),
+        $._newline,
+      ),
 
     body: ($) =>
       seq(

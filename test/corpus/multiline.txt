@@ -1,0 +1,110 @@
+================================================================================
+Multiline URL with path and query
+================================================================================
+
+GET https://example.com
+    /api
+    /users
+    ?page=1
+    &limit=10
+Accept: application/json
+
+--------------------------------------------------------------------------------
+
+(document
+  (request
+    (request_line
+      method: (method)
+      url: (url (url_segment)))
+    (url_continuation (url_segment))
+    (url_continuation (url_segment))
+    (url_continuation (url_segment))
+    (url_continuation (url_segment))
+    (header
+      name: (header_name)
+      value: (header_value (header_value_segment)))))
+
+================================================================================
+Multiline URL with fragment
+================================================================================
+
+GET https://example.com
+    /docs
+    #section-2
+
+--------------------------------------------------------------------------------
+
+(document
+  (request
+    (request_line
+      method: (method)
+      url: (url (url_segment)))
+    (url_continuation (url_segment))
+    (url_continuation (url_segment))))
+
+================================================================================
+Multiline URL with variables
+================================================================================
+
+GET https://{{host}}
+    /api/{{version}}
+    ?id={{itemId}}
+
+--------------------------------------------------------------------------------
+
+(document
+  (request
+    (request_line
+      method: (method)
+      url: (url
+        (url_segment)
+        (variable (variable_name))))
+    (url_continuation
+      (url_segment)
+      (variable (variable_name)))
+    (url_continuation
+      (url_segment)
+      (variable (variable_name)))))
+
+================================================================================
+Multiline header value
+================================================================================
+
+GET https://example.com
+Accept: text/html,
+    application/xhtml+xml,
+    application/xml;q=0.9
+
+--------------------------------------------------------------------------------
+
+(document
+  (request
+    (request_line
+      method: (method)
+      url: (url (url_segment)))
+    (header
+      name: (header_name)
+      value: (header_value (header_value_segment))
+      (header_continuation
+        value: (header_value (header_value_segment)))
+      (header_continuation
+        value: (header_value (header_value_segment))))))
+
+================================================================================
+Single line URL still works
+================================================================================
+
+GET https://example.com/api/users?page=1 HTTP/1.1
+Accept: application/json
+
+--------------------------------------------------------------------------------
+
+(document
+  (request
+    (request_line
+      method: (method)
+      url: (url (url_segment))
+      version: (http_version))
+    (header
+      name: (header_name)
+      value: (header_value (header_value_segment)))))

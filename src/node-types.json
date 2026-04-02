@@ -207,6 +207,32 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "header_continuation",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "header_continuation",
+    "named": true,
+    "fields": {
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "header_value",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -275,6 +301,10 @@
         },
         {
           "type": "request_line",
+          "named": true
+        },
+        {
+          "type": "url_continuation",
           "named": true
         }
       ]
@@ -370,6 +400,25 @@
   },
   {
     "type": "url",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "url_segment",
+          "named": true
+        },
+        {
+          "type": "variable",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "url_continuation",
     "named": true,
     "fields": {},
     "children": {
