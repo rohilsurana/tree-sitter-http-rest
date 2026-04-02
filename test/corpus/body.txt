@@ -1,0 +1,97 @@
+================================================================================
+JSON body
+================================================================================
+
+POST https://example.com/api
+Content-Type: application/json
+
+{
+  "name": "test",
+  "value": 42
+}
+
+--------------------------------------------------------------------------------
+
+(document
+  (request
+    (request_line
+      method: (method)
+      url: (url (url_segment)))
+    (header
+      name: (header_name)
+      value: (header_value (header_value_segment)))
+    (body
+      (raw_body
+        (body_line (body_content))
+        (body_line (body_content))
+        (body_line (body_content))
+        (body_line (body_content))))))
+
+================================================================================
+File reference
+================================================================================
+
+POST https://example.com/upload
+Content-Type: application/json
+
+< ./data.json
+
+--------------------------------------------------------------------------------
+
+(document
+  (request
+    (request_line
+      method: (method)
+      url: (url (url_segment)))
+    (header
+      name: (header_name)
+      value: (header_value (header_value_segment)))
+    (body
+      (file_reference
+        path: (file_path)))))
+
+================================================================================
+File reference with variable processing
+================================================================================
+
+POST https://example.com/upload
+
+<@ ./template.json
+
+--------------------------------------------------------------------------------
+
+(document
+  (request
+    (request_line
+      method: (method)
+      url: (url (url_segment)))
+    (body
+      (file_reference
+        path: (file_path)))))
+
+================================================================================
+Request without body followed by separator
+================================================================================
+
+GET https://example.com
+Accept: text/html
+
+###
+
+GET https://other.com
+
+--------------------------------------------------------------------------------
+
+(document
+  (request
+    (request_line
+      method: (method)
+      url: (url (url_segment)))
+    (header
+      name: (header_name)
+      value: (header_value (header_value_segment))))
+  (request_separator)
+  (request
+    (request_line
+      method: (method)
+      url: (url (url_segment)))))

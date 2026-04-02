@@ -1,0 +1,108 @@
+================================================================================
+File variables
+================================================================================
+
+@host = httpbin.org
+@port = 8080
+
+GET https://{{host}}:{{port}}/get
+
+--------------------------------------------------------------------------------
+
+(document
+  (file_variable
+    name: (file_variable_name)
+    value: (file_variable_value (file_variable_raw)))
+  (file_variable
+    name: (file_variable_name)
+    value: (file_variable_value (file_variable_raw)))
+  (request
+    (request_line
+      method: (method)
+      url: (url
+        (url_segment)
+        (variable (variable_name))
+        (url_segment)
+        (variable (variable_name))
+        (url_segment)))))
+
+================================================================================
+Variable in header value
+================================================================================
+
+GET https://example.com
+Authorization: Bearer {{token}}
+
+--------------------------------------------------------------------------------
+
+(document
+  (request
+    (request_line
+      method: (method)
+      url: (url (url_segment)))
+    (header
+      name: (header_name)
+      value: (header_value
+        (header_value_segment)
+        (variable (variable_name))))))
+
+================================================================================
+System variable guid
+================================================================================
+
+@requestId = {{$guid}}
+
+--------------------------------------------------------------------------------
+
+(document
+  (file_variable
+    name: (file_variable_name)
+    value: (file_variable_value
+      (variable
+        (system_variable
+          name: (system_variable_name))))))
+
+================================================================================
+System variable with args
+================================================================================
+
+@random = {{$randomInt 1 100}}
+
+--------------------------------------------------------------------------------
+
+(document
+  (file_variable
+    name: (file_variable_name)
+    value: (file_variable_value
+      (variable
+        (system_variable
+          name: (system_variable_name)
+          args: (system_variable_args))))))
+
+================================================================================
+File variable referencing another variable
+================================================================================
+
+@host = api.example.com
+@baseUrl = https://{{host}}/v1
+
+GET {{baseUrl}}/users
+
+--------------------------------------------------------------------------------
+
+(document
+  (file_variable
+    name: (file_variable_name)
+    value: (file_variable_value (file_variable_raw)))
+  (file_variable
+    name: (file_variable_name)
+    value: (file_variable_value
+      (file_variable_raw)
+      (variable (variable_name))
+      (file_variable_raw)))
+  (request
+    (request_line
+      method: (method)
+      url: (url
+        (variable (variable_name))
+        (url_segment)))))

@@ -1,0 +1,26 @@
+@host = httpbin.org
+@token = abc123
+
+# Get user info
+GET https://{{host}}/get HTTP/1.1
+Accept: application/json
+Authorization: Bearer {{token}}
+
+###
+
+# @name login
+POST https://{{host}}/post HTTP/1.1
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "{{$guid}}"
+}
+
+### Create resource
+
+# @note This will modify data
+PUT https://{{host}}/put
+Content-Type: application/json
+
+< ./payload.json

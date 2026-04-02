@@ -1,0 +1,78 @@
+================================================================================
+Hash comment
+================================================================================
+
+# This is a comment
+GET https://example.com
+
+--------------------------------------------------------------------------------
+
+(document
+  (comment (comment_text))
+  (request
+    (request_line
+      method: (method)
+      url: (url (url_segment)))))
+
+================================================================================
+Double slash comment
+================================================================================
+
+// This is a comment
+GET https://example.com
+
+--------------------------------------------------------------------------------
+
+(document
+  (comment (comment_text))
+  (request
+    (request_line
+      method: (method)
+      url: (url (url_segment)))))
+
+================================================================================
+Separator with label
+================================================================================
+
+GET https://example.com
+
+### User Management
+
+POST https://example.com/users
+
+--------------------------------------------------------------------------------
+
+(document
+  (request
+    (request_line
+      method: (method)
+      url: (url (url_segment))))
+  (request_separator
+    label: (separator_label))
+  (request
+    (request_line
+      method: (method)
+      url: (url (url_segment)))))
+
+================================================================================
+Empty separator
+================================================================================
+
+GET https://example.com
+
+###
+
+POST https://example.com
+
+--------------------------------------------------------------------------------
+
+(document
+  (request
+    (request_line
+      method: (method)
+      url: (url (url_segment))))
+  (request_separator)
+  (request
+    (request_line
+      method: (method)
+      url: (url (url_segment)))))

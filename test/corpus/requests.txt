@@ -1,0 +1,155 @@
+================================================================================
+Simple GET request
+================================================================================
+
+GET https://example.com/api/users
+
+--------------------------------------------------------------------------------
+
+(document
+  (request
+    (request_line
+      method: (method)
+      url: (url (url_segment)))))
+
+================================================================================
+GET with HTTP version
+================================================================================
+
+GET https://example.com/api/users HTTP/1.1
+
+--------------------------------------------------------------------------------
+
+(document
+  (request
+    (request_line
+      method: (method)
+      url: (url (url_segment))
+      version: (http_version))))
+
+================================================================================
+POST with headers and body
+================================================================================
+
+POST https://example.com/api/users HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "John"
+}
+
+--------------------------------------------------------------------------------
+
+(document
+  (request
+    (request_line
+      method: (method)
+      url: (url (url_segment))
+      version: (http_version))
+    (header
+      name: (header_name)
+      value: (header_value (header_value_segment)))
+    (header
+      name: (header_name)
+      value: (header_value (header_value_segment)))
+    (body
+      (raw_body
+        (body_line (body_content))
+        (body_line (body_content))
+        (body_line (body_content))))))
+
+================================================================================
+All HTTP methods
+================================================================================
+
+GET https://example.com
+
+###
+
+POST https://example.com
+
+###
+
+PUT https://example.com
+
+###
+
+DELETE https://example.com
+
+###
+
+PATCH https://example.com
+
+###
+
+HEAD https://example.com
+
+###
+
+OPTIONS https://example.com
+
+###
+
+CONNECT https://example.com
+
+###
+
+TRACE https://example.com
+
+--------------------------------------------------------------------------------
+
+(document
+  (request
+    (request_line method: (method) url: (url (url_segment))))
+  (request_separator)
+  (request
+    (request_line method: (method) url: (url (url_segment))))
+  (request_separator)
+  (request
+    (request_line method: (method) url: (url (url_segment))))
+  (request_separator)
+  (request
+    (request_line method: (method) url: (url (url_segment))))
+  (request_separator)
+  (request
+    (request_line method: (method) url: (url (url_segment))))
+  (request_separator)
+  (request
+    (request_line method: (method) url: (url (url_segment))))
+  (request_separator)
+  (request
+    (request_line method: (method) url: (url (url_segment))))
+  (request_separator)
+  (request
+    (request_line method: (method) url: (url (url_segment))))
+  (request_separator)
+  (request
+    (request_line method: (method) url: (url (url_segment)))))
+
+================================================================================
+Request with no body and separator
+================================================================================
+
+GET https://example.com/api
+Accept: application/json
+
+###
+
+POST https://example.com/api
+
+--------------------------------------------------------------------------------
+
+(document
+  (request
+    (request_line
+      method: (method)
+      url: (url (url_segment)))
+    (header
+      name: (header_name)
+      value: (header_value (header_value_segment))))
+  (request_separator)
+  (request
+    (request_line
+      method: (method)
+      url: (url (url_segment)))))

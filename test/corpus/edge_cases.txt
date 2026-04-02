@@ -1,0 +1,98 @@
+================================================================================
+Request with only method and URL
+================================================================================
+
+GET https://example.com
+
+--------------------------------------------------------------------------------
+
+(document
+  (request
+    (request_line
+      method: (method)
+      url: (url (url_segment)))))
+
+================================================================================
+Multiple blank lines between sections
+================================================================================
+
+GET https://example.com
+
+###
+
+GET https://other.com
+
+--------------------------------------------------------------------------------
+
+(document
+  (request
+    (request_line
+      method: (method)
+      url: (url (url_segment))))
+  (request_separator)
+  (request
+    (request_line
+      method: (method)
+      url: (url (url_segment)))))
+
+================================================================================
+URL with query parameters
+================================================================================
+
+GET https://example.com/search?q=test&page=1&limit=10
+
+--------------------------------------------------------------------------------
+
+(document
+  (request
+    (request_line
+      method: (method)
+      url: (url (url_segment)))))
+
+================================================================================
+Empty document
+================================================================================
+
+
+--------------------------------------------------------------------------------
+
+(document)
+
+================================================================================
+Only comments
+================================================================================
+
+# This file has no requests
+// Just comments
+
+--------------------------------------------------------------------------------
+
+(document
+  (comment (comment_text))
+  (comment (comment_text)))
+
+================================================================================
+Headers only no body
+================================================================================
+
+GET https://example.com
+Accept: application/json
+Cache-Control: no-cache
+X-Custom-Header: some-value
+
+--------------------------------------------------------------------------------
+
+(document
+  (request
+    (request_line
+      method: (method)
+      url: (url (url_segment)))
+    (header
+      name: (header_name)
+      value: (header_value (header_value_segment)))
+    (header
+      name: (header_name)
+      value: (header_value (header_value_segment)))
+    (header
+      name: (header_name)
+      value: (header_value (header_value_segment)))))

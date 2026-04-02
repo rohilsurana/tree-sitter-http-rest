@@ -1,0 +1,105 @@
+================================================================================
+Named request
+================================================================================
+
+# @name login
+POST https://example.com/auth/login
+Content-Type: application/json
+
+{"user": "admin"}
+
+--------------------------------------------------------------------------------
+
+(document
+  (request
+    (annotation
+      name: (annotation_name)
+      value: (annotation_value))
+    (request_line
+      method: (method)
+      url: (url (url_segment))
+    )
+    (header
+      name: (header_name)
+      value: (header_value (header_value_segment)))
+    (body
+      (raw_body
+        (body_line (body_content))))))
+
+================================================================================
+No redirect annotation
+================================================================================
+
+# @no-redirect
+GET https://example.com/old-page
+
+--------------------------------------------------------------------------------
+
+(document
+  (request
+    (annotation
+      name: (annotation_name))
+    (request_line
+      method: (method)
+      url: (url (url_segment)))))
+
+================================================================================
+Note annotation
+================================================================================
+
+# @note This modifies production data
+PUT https://example.com/api/config
+
+--------------------------------------------------------------------------------
+
+(document
+  (request
+    (annotation
+      name: (annotation_name)
+      value: (annotation_value))
+    (request_line
+      method: (method)
+      url: (url (url_segment)))))
+
+================================================================================
+Prompt annotation
+================================================================================
+
+# @prompt password Enter your password
+POST https://example.com/login
+
+--------------------------------------------------------------------------------
+
+(document
+  (request
+    (annotation
+      name: (annotation_name)
+      value: (annotation_value))
+    (request_line
+      method: (method)
+      url: (url (url_segment)))))
+
+================================================================================
+Multiple annotations
+================================================================================
+
+# @name createUser
+# @note Requires admin access
+# @no-cookie-jar
+POST https://example.com/users
+
+--------------------------------------------------------------------------------
+
+(document
+  (request
+    (annotation
+      name: (annotation_name)
+      value: (annotation_value))
+    (annotation
+      name: (annotation_name)
+      value: (annotation_value))
+    (annotation
+      name: (annotation_name))
+    (request_line
+      method: (method)
+      url: (url (url_segment)))))
